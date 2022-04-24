@@ -178,6 +178,14 @@ a {
 	width: 100%;
 }
 
+#msg{
+	border-radius: 0.25rem;
+	border: 1px solid #667aff;
+
+}
+
+#msg:focus{
+}
 @media (max-width: 700px) {
 	.chat-main {
 		display: block;
