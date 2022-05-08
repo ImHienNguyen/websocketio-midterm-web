@@ -10,4 +10,13 @@ router.get('/m', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get("/login", (req,res)=>{
+  res.render('login', {title: 'Login'})
+})
+
+router.get('/register', (req,res)=>{
+  res.render('register', {title: "Register"})
+})
+
+
 module.exports = router;
