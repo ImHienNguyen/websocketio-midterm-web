@@ -23,11 +23,31 @@ app.engine('handlebars', expressHandlebars.engine({
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 
+app.use(require('cookie-parser')("This is code secret code"))
+app.use(require('express-session')({
+  secret: "This is some secret code",
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: !true }
+}))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Flash message
+app.use((req, res, next) => {
+  res.locals.flash = req.session.flash;
+  delete req.session.flash
+  next()
+})
+
+app.use((req, res, next) => {
+  res.locals.user = req.session.user;
+  next()
+})
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
