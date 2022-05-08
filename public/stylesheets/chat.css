@@ -62,3 +62,7 @@ button, input{
   border: DodgerBlue
 }
 
+#room-list a{
+  margin: 10px 0;
+}
+
