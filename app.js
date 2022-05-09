@@ -14,7 +14,7 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 const server = http.createServer(app)
-const io = socketio(server)
+const io = socketio(server) 
 
 app.engine('handlebars', expressHandlebars.engine({
   defaultLayout: 'main',
@@ -28,6 +28,7 @@ app.engine('handlebars', expressHandlebars.engine({
     }
   }
 }))
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
@@ -59,7 +60,10 @@ app.use((req, res, next) => {
 
 
 io.on('connection', socket => {
-  socket.on('join',)
+  socket.on('join', userPackage=>{
+
+
+  })
 })
 
 app.use('/', indexRouter);
@@ -81,4 +85,4 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+module.exports = {app,server};
