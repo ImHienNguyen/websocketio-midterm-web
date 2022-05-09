@@ -66,3 +66,7 @@ button, input{
   margin: 10px 0;
 }
 
+#room-list .clicked{
+  background-color: #0069d9;
+}
+

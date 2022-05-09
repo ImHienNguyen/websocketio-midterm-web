@@ -4,11 +4,30 @@ const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt')
 const connect = require('../database/db')
 
+
 /* GET home page. */
+
+
 router.get('/', function(req, res, next) {
-  
-  res.render('chat', { title: 'Express' });
+  let idRoom = req.query["idRoom"]
+    connect.query("select * from room", (err,result)=>{
+
+    const context = result.map(e=>({
+      id: e.idroom,
+      name: e.name,
+      slogan: e.slogan
+    }))
+
+    if(idRoom===undefined){
+      idRoom = context[0].id
+    }
+
+    const currentSlogan = context.find(e=>+e.id===+idRoom).slogan
+    console.log(currentSlogan)
+    res.render('chat', { title: 'Express', context, currentRoomID:idRoom, currentSlogan});
+  })
 });
+
 
 router.get('/m', function (req, res, next) {
 	res.render('index', { title: 'Express' });

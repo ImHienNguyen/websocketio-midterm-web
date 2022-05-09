@@ -22,13 +22,12 @@
         <div class="chat-sidebar">
           <h3><i class="fas fa-users"></i> Rooms</h3>
           <div id="room-list">
-            <a href="#" class="btn w-100 btn-primary">Room</a>
-            <a href="#" class="btn w-100 btn-primary">Room</a>
-            <a href="#" class="btn w-100 btn-primary">Room</a>
-            <a href="#" class="btn w-100 btn-primary">Room</a>
+            {{#each context}}
+            <a href="?idRoom={{id}}"  class="btn w-100 btn-primary {{#checkPath id ../currentRoomID}} clicked {{/checkPath}}">{{name}}</a>
+            {{/each}}
           </div>
         </div>
-        <div class="chat-messages">
+        <div class="chat-messages"> 
           <div id="chat">
             <div class="hoder">
               <div class="content">Hello</div>
@@ -98,8 +97,7 @@
         </div>
         
         <div class="chat-sidebar">
-          <h3>You are chatting with Hai Dang</h3>
-          
+          <h3>{{currentSlogan}}</h3>
         </div>
       </main>
       <div class="chat-form-container">
@@ -125,6 +123,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="js/main.js"></script>
+    <script src="javascripts/chat.js"></script>
   </body>
 </html>
