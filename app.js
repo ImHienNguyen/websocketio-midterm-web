@@ -15,6 +15,8 @@ const { userJoin, getCurrentUser } = require('./database/users');
 const { formatMessage } = require('./database/helper');
 
 var app = express();
+
+
 const server = http.createServer(app)
 const io = socketio(server)
 
@@ -73,7 +75,6 @@ io.on('connection', socket => {
     io.to(currentUser.room).emit('message', formatMessage(currentUser,message))
   })
 
-  // socket.on()
 })
 
 app.use('/', indexRouter);
@@ -89,7 +90,6 @@ app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
   // render the error page
   res.status(err.status || 500);
   res.render('error');

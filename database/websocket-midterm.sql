@@ -43,8 +43,7 @@ CREATE TABLE `account` (
 INSERT INTO `account` (`id`, `name`, `email`, `password`) VALUES
 (1, 'admin', 'admin@gmail.com', '$2b$10$juTZdCXGGLUEgCbu1zPH7OCgqH241FbX8GAWTmA89/FqILsoChHZa'),
 (2, 'dang', 'dang@mail.com', '$2b$10$JQmPVAsIXGU.L5HJglNfvOXxxwtsQ9aoZcyCg25gzWuN2KLqIfeNS'),
-(3, 'dang', 'dang@mail.com', '$2b$10$dyw7lcvgJlaY7hB0UdJiJ.5lXEukeL23mTxBePKdlkBD11esixAUq'),
-(4, 'dang123', 'dang123@mail.com', '$2b$10$PMCCImsku885LGbG5OLk5eaG7ONFlsb0qm8C96Pn6XTAcPt3obODW');
+(3, 'dang123', 'dang123@mail.com', '$2b$10$PMCCImsku885LGbG5OLk5eaG7ONFlsb0qm8C96Pn6XTAcPt3obODW');
 
 -- --------------------------------------------------------
 
@@ -92,7 +91,7 @@ ALTER TABLE `room`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `room`

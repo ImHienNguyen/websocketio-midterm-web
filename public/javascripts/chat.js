@@ -6,6 +6,7 @@ const chatForm = document.querySelector('#chat-form')
 const myMsg = document.querySelector('#msg')
 
 const socket = io()
+
 console.log(socket)
 
 socket.emit('join', { email: currentEmail, room: currentRoom })
