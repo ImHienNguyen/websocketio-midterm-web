@@ -9,29 +9,27 @@ const connect = require('../database/db')
 
 
 router.get('/', function (req, res, next) {
-	console.log("This is cookie :" + req.signedCookies.email)
-	const userEmail = req.signedCookies.email
-	let idRoom = req.query["idRoom"]
-	connect.query("select * from room", (err, result) => {
-		const context = result.map(e => ({
-			id: e.idroom,
-			name: e.name,
-			slogan: e.slogan
-		}))
+	if (!req.signedCookies.email) {
+		return res.redirect('/login')
+	} else {
+		const userEmail = req.signedCookies.email
+		let idRoom = req.query["idRoom"]
+		connect.query("select * from room", (err, result) => {
+			const context = result.map(e => ({
+				id: e.idroom,
+				name: e.name,
+				slogan: e.slogan
+			}))
 
-		if (idRoom === undefined) {
-			idRoom = context[0].id
-		}
+			if (idRoom === undefined) {
+				idRoom = context[0].id
+			}
 
-		const currentSlogan = context.find(e => +e.id === +idRoom).slogan
-		console.log(currentSlogan)
-		res.render('chat', { title: 'Express', context, currentRoomID: idRoom, currentSlogan, currentUserEmail: userEmail });
-	})
-});
-
-
-router.get('/m', function (req, res, next) {
-	res.render('index', { title: 'Express' });
+			const currentSlogan = context.find(e => +e.id === +idRoom).slogan
+			console.log(currentSlogan)
+			res.render('chat', { title: 'Express', context, currentRoomID: idRoom, currentSlogan, currentUserEmail: userEmail });
+		})
+	}
 });
 
 router.get("/login", (req, res) => {

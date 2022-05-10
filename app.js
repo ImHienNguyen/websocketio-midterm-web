@@ -11,7 +11,7 @@ const socketio = require('socket.io')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const { userJoin } = require('./database/users');
+const { userJoin, getCurrentUser } = require('./database/users');
 const { formatMessage } = require('./database/helper');
 
 var app = express();
@@ -65,7 +65,12 @@ io.on('connection', socket => {
     const currentUser = userJoin(socket.id, email, room)
     // Join room
     socket.join(currentUser.room)
-    socket.emit('message', formatMessage(currentUser, "Joined!"))
+    socket.emit('message', formatMessage(currentUser, "Welcome back!"))
+    socket.broadcast.to(room).emit('message', formatMessage(currentUser, `${email} is joined again`))
+  }),
+  socket.on('chat',(message)=>{
+    const currentUser = getCurrentUser(socket.id)
+    io.to(currentUser.room).emit('message', formatMessage(currentUser,message))
   })
 
   // socket.on()
