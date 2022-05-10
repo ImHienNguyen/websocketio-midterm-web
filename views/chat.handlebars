@@ -13,10 +13,12 @@
     <title>Shake Messenger</title>
   </head>
   <body bgcolor="bg-light">
+    <div id="currentUserEmail" data-currentid="{{currentUserEmail}}"></div>
+    <div id="idRoom" data-idroom="{{currentRoomID}}"></div>
     <div class="chat-container">
       <header class="chat-header">
         <h1><i class="fa-brands fa-rocketchat"></i> Shark Messenger</h1>
-        <a id="leave-btn" class="btn btn-danger"><i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> LogOut</a>
+        <a href="/logout" id="leave-btn" class="btn btn-danger"><i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> LogOut</a>
       </header>
       <main class="chat-main">
         <div class="chat-sidebar">
@@ -123,6 +125,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="javascripts/chat.js"></script>
+    <script src="/javascripts/chat.js"></script>
   </body>
 </html>

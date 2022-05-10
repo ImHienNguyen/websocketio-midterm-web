@@ -1,8 +1,29 @@
-const chatContainer = document.querySelector('#chat')
+const chatContainer = document.querySelector('.chat-messages')
+const chat = document.querySelector('#chat')
+const currentEmail = document.querySelector('#currentUserEmail').dataset.currentid
+const currentRoom = document.querySelector('#idRoom').dataset.idroom
 
 const socket = io()
 console.log(socket)
 
-function outputMessage(message, isMe=false){
-    console.log(message,isMe)
+socket.emit('join', { email: currentEmail, room: currentRoom })
+
+socket.on("message", (messageInfo) => {
+    console.log(messageInfo)
+    printMessage(messageInfo)
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+})
+
+
+function printMessage(message) {
+    console.log(message)
+    const messageClass = message.email === currentEmail ? "hoder me" : "hoder"
+    const messageBox = `
+        <div class="${messageClass}">
+            <div class="content">${message.msg}</div>
+        </div>
+    `
+    chat.insertAdjacentHTML('beforeend', messageBox)
 }
+
+

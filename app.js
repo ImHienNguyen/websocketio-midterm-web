@@ -11,10 +11,12 @@ const socketio = require('socket.io')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const { userJoin } = require('./database/users');
+const { formatMessage } = require('./database/helper');
 
 var app = express();
 const server = http.createServer(app)
-const io = socketio(server) 
+const io = socketio(server)
 
 app.engine('handlebars', expressHandlebars.engine({
   defaultLayout: 'main',
@@ -23,7 +25,6 @@ app.engine('handlebars', expressHandlebars.engine({
       const fnTrue = options.fn,
         fnFalse = options.inverse;
       console.log(routerPath, navPath)
-
       return +routerPath === +navPath ? fnTrue(this) : fnFalse(this)
     }
   }
@@ -60,10 +61,14 @@ app.use((req, res, next) => {
 
 
 io.on('connection', socket => {
-  socket.on('join', userPackage=>{
-
-
+  socket.on('join', ({ email, room }) => {
+    const currentUser = userJoin(socket.id, email, room)
+    // Join room
+    socket.join(currentUser.room)
+    socket.emit('message', formatMessage(currentUser, "Joined!"))
   })
+
+  // socket.on()
 })
 
 app.use('/', indexRouter);
@@ -85,4 +90,4 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-module.exports = {app,server};
+module.exports = { app, server };
